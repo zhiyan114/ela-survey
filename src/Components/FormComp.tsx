@@ -19,18 +19,18 @@ export class MultiChoice extends Component<MultiChoceOpt> {
         return (
             <FormGroup>
                 <FormControl style={{padding: "1rem 0"}}>
-                <p style={{paddingBottom: "15px"}}>{this.props.description}</p>
-                <FormLabel>{this.props.name}</FormLabel>
-                <RadioGroup defaultValue={this.props.defaultVal} name={this.props.name} onChange={this.props.onChange}>
-                    {this.props.options.map((opt,i)=>
-                        <FormControlLabel
-                        key={i}
-                        value={opt.value ?? opt.name}
-                        control={<Radio/>}
-                        label={opt.name}
-                        />
-                    )}
-                </RadioGroup>
+                    <p style={{paddingBottom: "15px"}}>{this.props.description}</p>
+                    <FormLabel>{this.props.name}</FormLabel>
+                    <RadioGroup defaultValue={this.props.defaultVal} name={this.props.name} onChange={this.props.onChange}>
+                        {this.props.options.map((opt,i)=>
+                            <FormControlLabel
+                            key={i}
+                            value={opt.value ?? opt.name}
+                            control={<Radio/>}
+                            label={opt.name}
+                            />
+                        )}
+                    </RadioGroup>
                 </FormControl>
             </FormGroup>
         )
