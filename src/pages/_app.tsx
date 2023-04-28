@@ -8,7 +8,7 @@ import background from '../styles/background.module.css'
 export default function App({ Component, pageProps }: AppProps) {
   return <Fragment>
     <Head>
-      <title>zhiyan114's Survey Response</title>
+      <title>zhiyan114's ELA Survey</title>
       <meta name="viewport" content="width=device-width, initial-scale=1"/>
       <meta name="theme-color" content="#00FFFF" />
       <meta property="og:type" content="website"/>

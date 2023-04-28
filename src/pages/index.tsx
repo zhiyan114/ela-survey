@@ -13,11 +13,11 @@ type formState = {
   QThree?: string,
   QFour?: string,
   QFive?: string,
-  DOne?: string,
-  DTwo?: string,
-  DThree?: string,
-  DFour?: string,
-  DFive?: string,
+  age?: string,
+  gender?: string,
+  ethnicity?: string,
+  education?: string,
+  inital?: string,
 }
 
 export default class Home extends Component<{}, formState> {
@@ -50,10 +50,10 @@ export default class Home extends Component<{}, formState> {
             <form onSubmit={(e)=>e.preventDefault()} ref={this.formRef}>
               <div className={styles.formHeader} aria-label='Form Header'>
                 <h1>CyberSecurity Survey</h1>
-                <p>Thank You for your participation! In this survey, we'll be collecting some information reguarding <code>CyberSecurity</code>.</p>
+                <p>Thank You for your participation! In this survey, I'll be collecting some information reguarding <code>CyberSecurity</code>.</p>
               </div>
               <hr/>
-              <MultiChoice name="Question 1" description="Has your computer system ever got promised due to a lack of cybersecurity knowledge?" options={[{name: "Yes, myself"}, {name: "Yes, someone else"}, {name: "No"}]} onChange={(_,val)=>this.setState({QOne: val})}/>
+              <MultiChoice name="Question 1" description="Have you or someone you know had their system compromised due to the lack of cybersecurity awareness?" options={[{name: "Yes, myself"}, {name: "Yes, someone else"}, {name: "No"}]} onChange={(_,val)=>this.setState({QOne: val})}/>
               <hr/>
               <MultiChoice name="Question 2" description="Have you ever taken any cybersecurity courses. If so, how helpful were they?" options={[{name: "Yes, useful"}, {name: "Yes, not useful"}, {name: "no"}]} onChange={(_,val)=>this.setState({QTwo: val})}/>
               <hr/>
@@ -65,18 +65,18 @@ export default class Home extends Component<{}, formState> {
               <hr/>
               <div className={styles.formHeader} aira-label="Demographic Label">
                 <h2>Demographic Info</h2>
-                <p>This information allows me to analyze how each demographics affect the outcome of your response.</p>
+                <p>This information allows me to better analyze the response.</p>
               </div>
               <hr/>
-              <MultiChoice name="Demographic 1" description="What's your age?" options={[{name: "Yes, myself"}, {name: "Yes, someone else"}, {name: "No"}]} onChange={(_,val)=>this.setState({DOne: val})}/>
+              <MultiChoice name="age" description="What's your age?" options={[{name: "13-15"}, {name: "16-18"}, {name: "19-21"}, {name: "21+"}]} onChange={(_,val)=>this.setState({age: val})}/>
               <hr/>
-              <MultiChoice name="Demographic 2" description="What's your gender?" options={[{name: "Male"}, {name: "Female"}, {name: "Non-Binary"}]} onChange={(_,val)=>this.setState({DTwo: val})}/>
+              <MultiChoice name="gender" description="What's your gender?" options={[{name: "Male"}, {name: "Female"}, {name: "Non-Binary"}]} onChange={(_,val)=>this.setState({gender: val})}/>
               <hr/>
-              <MultiChoice name="Demographic 3" description="What's your ethnicity?" options={[{name: "American Indian or Alaska Native"}, {name: "Asian"}, {name: "Black or African American"}, {name: "Native Hawaiian or Other Pacific Islander"}, {name: "White"}]} onChange={(_,val)=>this.setState({DThree: val})}/>
+              <MultiChoice name="ethnicity" description="What's your ethnicity?" options={[{name: "American Indian or Alaska Native"}, {name: "Asian"}, {name: "Black or African American"}, {name: "Native Hawaiian or Other Pacific Islander"}, {name: "White"}]} onChange={(_,val)=>this.setState({ethnicity: val})}/>
               <hr/>
-              <MultiChoice name="Demographic 4" description="What's your highest education?" options={[{name: "Some High School"}, {name: "High School Diploma"}, {name: "Associate Degree"}, {name: "Bachelor Degree"}, {name: "Master's Degree"}, {name: "Doctorate Degree"}]} onChange={(_,val)=>this.setState({DFour: val})}/>
+              <MultiChoice name="education" description="What's your highest education?" options={[{name: "Some High School"}, {name: "High School Diploma"}, {name: "Associate Degree"}, {name: "Bachelor Degree"}, {name: "Master's Degree"}, {name: "Doctorate Degree"}]} onChange={(_,val)=>this.setState({education: val})}/>
               <hr/>
-              <TextResponse name="Demographic 5" description="To finish off, please write your inital here (please don't use full name)" onChange={(e)=>this.setState({DFive: e?.target.value})}/>
+              <TextResponse name="inital" description="To finish off, please write your inital here (don't use your full name)" onChange={(e)=>this.setState({inital: e?.target.value})}/>
               <hr/>
               <div className={styles.formFooter} aria-label="Form Footer">
                 <Button variant='contained' onClick={this.formSubmit} color="primary">Submit</Button>
