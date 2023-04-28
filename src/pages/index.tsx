@@ -40,21 +40,6 @@ export default class Home extends Component<{}, formState> {
     if(!result.isConfirmed) return;
     alert(JSON.stringify(this.state));
   }
-  formReset = () => {
-    swal.fire({
-      title: "Reset Form",
-      text: "Are you sure you want to reset the form?",
-      icon: "warning",
-      showConfirmButton: true,
-      confirmButtonText: "Yes",
-      confirmButtonColor: "#FF0000",
-      showCancelButton: true,
-      cancelButtonText: "No",
-      cancelButtonColor: "#00FF00"
-    }).then((res)=> {
-      if(res.isConfirmed) this.formRef.current?.reset();
-    })
-  }
   render(): ReactNode {
     return (
       <Fragment>
@@ -78,7 +63,6 @@ export default class Home extends Component<{}, formState> {
               <hr/>
               <div className={styles.formFooter} aria-label="Form Footer">
                 <Button variant='contained' onClick={this.formSubmit} color="primary">Submit</Button>
-                <Button variant='contained' onClick={this.formReset} color="warning">Reset</Button>
                 <p>This survey form is open source, view it on <a href="https://github.com/zhiyan114/ela-survey" target="_blank">github</a></p>
               </div>
             </form>
