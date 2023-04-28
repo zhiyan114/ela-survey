@@ -1,6 +1,17 @@
+const { withSentryConfig } = require('@sentry/nextjs')
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  sentry: {
+    hideSourceMaps: true,
+  }
 }
 
-module.exports = nextConfig
+const sentryWebpackOptions = {
+  org: "furrynet",
+  project: "ela-survey",
+  silent: true,
+}
+
+module.exports = withSentryConfig(nextConfig, sentryWebpackOptions);
