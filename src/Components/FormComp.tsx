@@ -1,9 +1,15 @@
-import { FormControl, FormGroup, FormHelperText, FormLabel, Input, InputLabel, TextField } from '@mui/material';
-import { Component, ReactNode } from "react";
+import { FormControl, FormControlLabel, FormGroup, FormLabel, Radio, RadioGroup, TextField } from '@mui/material';
+import { ChangeEvent, Component, ReactNode } from "react";
 
 type MultiChoceOpt = {
     name: string;
-    description?: string;
+    description: string;
+    onChange: (event: ChangeEvent<HTMLInputElement>, val: string) => void;
+    defaultVal?: string;
+    options: {
+        name: string;
+        value?: string
+    }[];
 }
 export class MultiChoice extends Component<MultiChoceOpt> {
     constructor(prop: MultiChoceOpt) {
@@ -11,48 +17,40 @@ export class MultiChoice extends Component<MultiChoceOpt> {
     }
     render(): ReactNode {
         return (
-            <FormControl>
-                <InputLabel>{this.props.name}</InputLabel>
-                <Input id={this.props.name}></Input>
-                {this.props.description ? <FormHelperText>
-                    {this.props.description}
-                </FormHelperText> : null}
-            </FormControl>
-        )
-    }
-}
-
-type ShortResponseOpt = {
-    name: string;
-    description: string;
-}
-export class ShortResponse extends Component<ShortResponseOpt> {
-    constructor(prop: ShortResponseOpt) {
-        super(prop)
-    }
-    render(): ReactNode {
-        return (
-            <FormGroup style={{padding: "1rem 0"}}>
-                <FormLabel style={{paddingBottom: "15px"}}>{this.props.description}</FormLabel>
-                <TextField id={this.props.name} label={this.props.name} variant="outlined"></TextField>
+            <FormGroup>
+                <FormControl style={{padding: "1rem 0"}}>
+                <p style={{paddingBottom: "15px"}}>{this.props.description}</p>
+                <FormLabel>{this.props.name}</FormLabel>
+                <RadioGroup defaultValue={this.props.defaultVal} name={this.props.name} onChange={this.props.onChange}>
+                    {this.props.options.map(opt=>
+                        <FormControlLabel
+                        value={opt.value ?? opt.name}
+                        control={<Radio/>}
+                        label={opt.name}
+                        />
+                    )}
+                </RadioGroup>
+                </FormControl>
             </FormGroup>
         )
     }
 }
 
-type LongResponseOpt = {
+type ResponseOpt = {
     name: string;
     description: string;
+    onChange: (event?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+    isLongResponse?: boolean;
 }
-export class LongResponse extends Component<LongResponseOpt> {
-    constructor(prop: LongResponseOpt) {
+export class TextResponse extends Component<ResponseOpt> {
+    constructor(prop: ResponseOpt) {
         super(prop)
     }
     render(): ReactNode {
         return (
             <FormGroup style={{padding: "1rem 0"}}>
-                <FormLabel style={{paddingBottom: "15px"}}>{this.props.description}</FormLabel>
-                <TextField id={this.props.name} label={this.props.name} variant="outlined"></TextField>
+                <p style={{paddingBottom: "15px"}}>{this.props.description}</p>
+                <TextField id={this.props.name} label={this.props.name} variant="outlined" multiline={this.props.isLongResponse} onChange={this.props.onChange}></TextField>
             </FormGroup>
         )
     }
