@@ -18,9 +18,6 @@ export default function App({ Component, pageProps }: AppProps) {
       <meta property="og:description" content="Mini-Research Project for ELA Class" key="mainDesc"/>
       <meta name="description" content="Mini-Research Project for ELA Class" key="altDesc"/>
     </Head>
-    <div className={`${background.context}`}>
-      <Component {...pageProps} />
-    </div>
     <div className={background.area}>
       <ul className={background.circles}>
         <li></li>
@@ -39,6 +36,6 @@ export default function App({ Component, pageProps }: AppProps) {
         <li></li>
       </ul>
     </div>
-    
+    <Component {...pageProps} />
   </Fragment>
 }
