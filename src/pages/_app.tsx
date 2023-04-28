@@ -2,6 +2,8 @@ import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { Fragment } from 'react'
+import background from '../styles/background.module.css'
+
 
 export default function App({ Component, pageProps }: AppProps) {
   return <Fragment>
@@ -16,6 +18,27 @@ export default function App({ Component, pageProps }: AppProps) {
       <meta property="og:description" content="Mini-Research Project for ELA Class" key="mainDesc"/>
       <meta name="description" content="Mini-Research Project for ELA Class" key="altDesc"/>
     </Head>
-    <Component {...pageProps} />
+    <div className={`${background.context}`}>
+      <Component {...pageProps} />
+    </div>
+    <div className={background.area}>
+      <ul className={background.circles}>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+    
   </Fragment>
 }
