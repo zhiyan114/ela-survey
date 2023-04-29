@@ -81,6 +81,7 @@ export default class Home extends Component<{}, formState> {
       body: JSON.stringify(this.state)
     });
     this.isSubmitting = false;
+    if(Math.floor(res.status/100) === 5) return await this.formFailed("Internal Server Error. Please try again later once a fix is deployed.");
     if(Math.floor(res.status/100) !== 2) return await this.formFailed((await res.json()).message);
     await swal.fire({
       title: "Survey Submitted",
