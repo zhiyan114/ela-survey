@@ -10,4 +10,5 @@ Sentry.init({
   replaysOnErrorSampleRate: 1,
   replaysSessionSampleRate: 0.1,
   tracesSampleRate: 0.5,
+  tunnel: "/stunnel"
 });
