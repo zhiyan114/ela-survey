@@ -22,6 +22,7 @@ type formState = {
 
 export default class Home extends Component<{}, formState> {
   formRef = createRef<HTMLFormElement>();
+  isSubmitting = false;
   constructor(prop: {}) {
     super(prop);
     this.state = {
@@ -37,6 +38,8 @@ export default class Home extends Component<{}, formState> {
     })
   }
   formSubmit = async () => {
+    if(this.isSubmitting) return;
+
     const result = await swal.fire({
       title: "Submit",
       text: "Are you sure you're finished with the response?",
@@ -60,6 +63,7 @@ export default class Home extends Component<{}, formState> {
     if(!this.state.inital || this.state.inital?.length !== 2) return await this.formFailed("Your inital shoul be 2 characters long");
 
     // Submit the form
+    this.isSubmitting = true;
     const res = await fetch('/api/submit', {
       method: 'POST',
       headers: {
@@ -67,6 +71,7 @@ export default class Home extends Component<{}, formState> {
       },
       body: JSON.stringify(this.state)
     });
+    this.isSubmitting = false;
     if(Math.floor(res.status/100) !== 2) return await this.formFailed((await res.json()).message);
     await swal.fire({
       title: "Survey Submitted",
