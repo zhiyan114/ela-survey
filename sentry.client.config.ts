@@ -8,7 +8,7 @@ Sentry.init({
     return event;
   },
   replaysOnErrorSampleRate: 1,
-  replaysSessionSampleRate: 0.1,
+  replaysSessionSampleRate: 0,
   tracesSampleRate: 0.5,
   tunnel: "/stunnel"
 });
