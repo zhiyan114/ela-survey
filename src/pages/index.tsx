@@ -26,6 +26,16 @@ export default class Home extends Component<{}, formState> {
   constructor(prop: {}) {
     super(prop);
     this.state = {
+      qone: "",
+      qtwo: "",
+      qthree: "",
+      qfour: "",
+      qfive: "",
+      age: "",
+      gender: "",
+      ethnicity: "",
+      education: "",
+      inital: "",
     }
   }
   formFailed = async (message: string) => {
@@ -54,10 +64,6 @@ export default class Home extends Component<{}, formState> {
     // Check if all the questions are answered
     const form = this.formRef.current;
     if(!form) return this.formFailed("Form is not loaded");
-    const inputs = form.querySelectorAll('input');
-    for(const input of inputs)
-      if(input.value.trim() === "")
-        return await this.formFailed("Please answer all the questions");
     for(const val of Object.values(this.state))
       if(!val || val.trim() === "")
         return await this.formFailed("Please answer all the questions");
