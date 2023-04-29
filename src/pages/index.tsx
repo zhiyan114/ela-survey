@@ -120,7 +120,7 @@ export default class Home extends Component<{}, formState> {
               <hr/>
               <MultiChoice name="gender" description="What's your gender?" options={[{name: "Male"}, {name: "Female"}, {name: "Non-Binary"}]} onChange={(_,val)=>this.setState({gender: val})}/>
               <hr/>
-              <MultiChoice name="ethnicity" description="What's your ethnicity?" options={[{name: "American Indian or Alaska Native"}, {name: "Asian"}, {name: "Black or African American"}, {name: "Native Hawaiian or Other Pacific Islander"}, {name: "White"}]} onChange={(_,val)=>this.setState({ethnicity: val})}/>
+              <MultiChoice name="ethnicity" description="What's your ethnicity?" options={[{name: "American Indian or Alaska Native"}, {name: "Asian"}, {name: "Hispanic and Latino Americans"}, {name: "Black or African American"}, {name: "Native Hawaiian or Other Pacific Islander"}, {name: "White"}]} onChange={(_,val)=>this.setState({ethnicity: val})}/>
               <hr/>
               <MultiChoice name="education" description="What's your highest education?" options={[{name: "Some High School"}, {name: "High School Diploma"}, {name: "Associate Degree"}, {name: "Bachelor Degree"}, {name: "Master's Degree"}, {name: "Doctorate Degree"}]} onChange={(_,val)=>this.setState({education: val})}/>
               <hr/>
