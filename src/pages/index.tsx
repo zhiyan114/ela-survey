@@ -8,11 +8,11 @@ import swal from 'sweetalert2'
 const inter = Inter({ subsets: ['latin'] })
 
 type formState = {
-  QOne?: string,
-  QTwo?: string,
-  QThree?: string,
-  QFour?: string,
-  QFive?: string,
+  qone?: string,
+  qtwo?: string,
+  qthree?: string,
+  qfour?: string,
+  qfive?: string,
   age?: string,
   gender?: string,
   ethnicity?: string,
@@ -25,10 +25,17 @@ export default class Home extends Component<{}, formState> {
   constructor(prop: {}) {
     super(prop);
     this.state = {
-      
     }
   }
-  
+  formFailed = async (message: string) => {
+    await swal.fire({
+      title: "Survey Failed to Submit",
+      text: message,
+      icon: "error",
+      showConfirmButton: true,
+      confirmButtonText: "Ok",
+    })
+  }
   formSubmit = async () => {
     const result = await swal.fire({
       title: "Submit",
@@ -40,7 +47,34 @@ export default class Home extends Component<{}, formState> {
       cancelButtonText: "No",
     })
     if(!result.isConfirmed) return;
-    alert(JSON.stringify(this.state));
+
+    // Check if all the questions are answered
+    const form = this.formRef.current;
+    if(!form) return this.formFailed("Form is not loaded");
+    const inputs = form.querySelectorAll('input');
+    for(const input of inputs)
+      if(input.value.trim() === "")
+        return await this.formFailed("Please answer all the questions");
+
+    // Check if the inital is too long
+    if(!this.state.inital || this.state.inital?.length !== 2) return await this.formFailed("Your inital shoul be 2 characters long");
+
+    // Submit the form
+    const res = await fetch('/api/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(this.state)
+    });
+    if(Math.floor(res.status/100) !== 2) return await this.formFailed((await res.json()).message);
+    await swal.fire({
+      title: "Survey Submitted",
+      text: (await res.json()).message,
+      icon: "success",
+      showConfirmButton: true,
+      confirmButtonText: "Ok",
+    })
   }
   render(): ReactNode {
     return (
@@ -53,15 +87,15 @@ export default class Home extends Component<{}, formState> {
                 <p>Thank You for your participation! In this survey, I'll be collecting some information reguarding <code>CyberSecurity</code>.</p>
               </div>
               <hr/>
-              <MultiChoice name="Question 1" description="Have you or someone you know had their system compromised due to the lack of cybersecurity awareness?" options={[{name: "Yes, myself"}, {name: "Yes, someone else"}, {name: "No"}]} onChange={(_,val)=>this.setState({QOne: val})}/>
+              <MultiChoice name="Question 1" description="Have you or someone you know had their system compromised due to the lack of cybersecurity awareness?" options={[{name: "Yes, myself"}, {name: "Yes, someone else"}, {name: "No"}]} onChange={(_,val)=>this.setState({qone: val})}/>
               <hr/>
-              <MultiChoice name="Question 2" description="Have you ever taken any cybersecurity courses. If so, how helpful were they?" options={[{name: "Yes, useful"}, {name: "Yes, not useful"}, {name: "no"}]} onChange={(_,val)=>this.setState({QTwo: val})}/>
+              <MultiChoice name="Question 2" description="Have you ever taken any cybersecurity courses. If so, how helpful were they?" options={[{name: "Yes, useful"}, {name: "Yes, not useful"}, {name: "no"}]} onChange={(_,val)=>this.setState({qtwo: val})}/>
               <hr/>
-              <MultiChoice name="Question 3" description="How many smart appliances and compute systems do you have? (Includes all devices that are capable of communicating with other device)" options={[{name: "1"}, {name: "2"}, {name: "3"}, {name: "4"}, {name:"5 or more"}]} onChange={(_,val)=>this.setState({QThree: val})}/>
+              <MultiChoice name="Question 3" description="How many smart appliances and compute systems do you have? (Includes all devices that are capable of communicating with other device)" options={[{name: "1"}, {name: "2"}, {name: "3"}, {name: "4"}, {name:"5 or more"}]} onChange={(_,val)=>this.setState({qthree: val})}/>
               <hr/>
-              <MultiChoice name="Question 4" description="Do you agree with the recent legislative proposals on the bill 'Restrict Act'?" options={[{name: "Yes"}, {name: "No"}, {name: "I don't know this bill"}]} onChange={(_,val)=> this.setState({QFour: val})}/>
+              <MultiChoice name="Question 4" description="Do you agree with the recent legislative proposals on the bill 'Restrict Act'?" options={[{name: "Yes"}, {name: "No"}, {name: "I don't know this bill"}]} onChange={(_,val)=> this.setState({qfour: val})}/>
               <hr/>
-              <TextResponse name="Question 5" description="What steps do you think is necessary to protect yourself from cyberattacks?" isLongResponse={true} onChange={(e)=>this.setState({QFive: e?.target.value})}/>
+              <TextResponse name="Question 5" description="What steps do you think is necessary to protect yourself from cyberattacks?" isLongResponse={true} onChange={(e)=>this.setState({qfive: e?.target.value})}/>
               <hr/>
               <div className={styles.formHeader} aira-label="Demographic Label">
                 <h2>Demographic Info</h2>
