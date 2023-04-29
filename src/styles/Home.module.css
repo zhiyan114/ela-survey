@@ -25,7 +25,10 @@
 .formFooter {
   text-align: center;
 }
-.formFooter > * {
+.formFooter > button {
+  margin: 1rem 0.8rem 0 0.8rem;
+}
+.formFooter > p {
   margin: 1rem 0.8rem 0 0.8rem;
 }
 
