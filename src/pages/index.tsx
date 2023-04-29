@@ -58,9 +58,12 @@ export default class Home extends Component<{}, formState> {
     for(const input of inputs)
       if(input.value.trim() === "")
         return await this.formFailed("Please answer all the questions");
+    for(const val of Object.values(this.state))
+      if(!val || val.trim() === "")
+        return await this.formFailed("Please answer all the questions");
 
     // Check if the inital is too long
-    if(!this.state.inital || this.state.inital?.length !== 2) return await this.formFailed("Your inital shoul be 2 characters long");
+    if(!this.state.inital || this.state.inital?.length !== 2) return await this.formFailed("Your inital should be 2 characters long");
 
     // Submit the form
     this.isSubmitting = true;
