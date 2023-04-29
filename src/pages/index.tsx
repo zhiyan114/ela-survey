@@ -84,7 +84,7 @@ export default class Home extends Component<{}, formState> {
             <form onSubmit={(e)=>e.preventDefault()} ref={this.formRef}>
               <div className={styles.formHeader} aria-label='Form Header'>
                 <h1>CyberSecurity Survey</h1>
-                <p>Thank You for your participation! In this survey, I'll be collecting some information reguarding <code>CyberSecurity</code>.</p>
+                <p>Thank You for your participation! In this survey, I&#39;ll be collecting some information reguarding <code>CyberSecurity</code>.</p>
               </div>
               <hr/>
               <MultiChoice name="Question 1" description="Have you or someone you know had their system compromised due to the lack of cybersecurity awareness?" options={[{name: "Yes, myself"}, {name: "Yes, someone else"}, {name: "No"}]} onChange={(_,val)=>this.setState({qone: val})}/>
